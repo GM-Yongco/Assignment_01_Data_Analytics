@@ -1,0 +1,132 @@
+==================================================
+MAIN TEMPLATE
+==================================================
+
+Interstitiona Cytisis
+
+terating now vs 
+not treating now but possibly treating later
+
+==================================================
+
+Three quantities were measured repeatedly over time: 
+	pain
+		(subjective appraisal, 0-9, 9 being higher intensity)
+	urgency
+		(subjective appraisal, 0-9, 9 being higher intensity)
+	nocturnal frequency of voiding
+
+note: 
+	baseline 
+		value is the value of the variable before treatment
+		when they first enter the study
+		Tp and patient attributes at Tp
+			is the attributes of the patients when one enters the treatment
+
+	quantile is a breakpoint that divides a group
+		the one half quantile divides a group into to parts
+		in the study, the one-third quantile and the two-thirds quantile divides the group into 3 parts
+			the one-third quantile divides the lower-one-third and the middle-one-third groups
+			the two-thirds quantile divides the middle-one-third and the upper-one-third groups
+
+	box/wisker plots
+		we divide the data set into 4 parts using 3 quartiles
+			[Q2] being the median of the entire datset
+				splitting the data set into 2 parts
+
+			[Q1] being the median of the lower half of the dataset
+			[Q3] being the median of the upper half of the data set
+
+		box
+			[Q3], top of box is the upper quartile
+			[Q2], line in the box is the middle quartile
+			[Q1], bottom of the box is the lower quartile
+
+		outliers/inlier
+			inter quartile range (IQR) = [Q3] - [Q1]
+			inlier range = ([Q1]-(1.5*[IQR]), [Q3]+(1.5*[IQR]))
+		
+		wiskers
+			top wisker = max value of the dataset within the inlier range
+			bottom wisker = min value of the dataset within the inlier range
+			outliers are indicated by a dot on the graph "outside" the wiskers
+
+==================================================
+
+T	: time 
+s	: pair of similar  patients
+	non overlapping samples
+	treated patient in pair s recieved treatment at Ts
+	the control patient, s, 
+		hasnt recieved the treatment yet 
+		or recieved it after Ts
+		but must be at risk of treatment at time Ts
+
+their pairing algorithm
+	nonoverlapping samples
+	conditional distribution rather than partial likelihood
+	match only on past data 
+		never on future data
+
+==================================================
+
+A	: set of all patients
+	consisting of {a1, a2, a3, ...}
+T	: set of all treated patients
+	consisting of {t1, t2, t3, ...}
+	[T] is a subset of [A]
+E	: edge connecting a pair of patients, [s]
+	consisting of {e1, e2, e3, ...}
+	is a subset of the direct product of [T] and [A]
+M	: pair of matched people using the pairing algorithm
+	consisting of {m1, m2, m3, ...}
+	is a subet of E
+	each [m] consists of subject [ap] and [aq]
+	every pair of [ap], and [aq] exists in [M]
+
+Pair matching is optimal of size if
+	minimizes total distance within pairs
+	Mahalanobis distance
+		between subject ap and subject aq
+		see section 3.1 last paragraph
+	in this study |M| = S = 100 was picked
+
+==================================================
+
+Time is measured in 3 month intervals
+	if m = (aq, ap)
+	where 
+		[ap] was treated at time [Tp]
+		[aq] was untreated at time [Tp]
+		[aq] was untreated until at least [Tp]+3 months
+
+==================================================
+
+K	: a set of binary variables for every [a]
+	consisiting of {[Bp1], [Bp2], [Bp3], ...} 
+	value is boolean
+	each variable is a [Bpk] associated with patient attribute; ex:
+		[Bpk] may describe gender of the [p]th treated subject
+		[Bpk] may describe a time-varying attribute at time [ap]
+	for each potential patient pairing ([ap], [aq])
+		there are K binary variales
+		there is a set of K binary varibles
+	implicatoins
+		for every pairing ([ap], [aq])
+		patient [ap] recieved treatment
+		patient [aq] did not
+		[Bek] describes the potential pairing
+			[Bpk] describes the treated patient [ap]
+			[Bqk] describes the treated patient [aq]
+
+==================================================
+
+plots
+	3 figures
+	6 pairs of blox plots each 
+		2 pairs for covariates before treatment
+		4 pairs descirbing outcomes after the treatment
+		>
+			the plots describe the 
+			outcome 3 and 6 months after treatment, and the 
+			change in outcome from treatment to 3 or 6 months after treatment
