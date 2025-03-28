@@ -1,6 +1,12 @@
 ==================================================
 BALANCED RISK SET MATCHING 
 ==================================================
+References
+    from scipy.spatial.distance import mahalanobis
+    https://www.youtube.com/watch?v=TPcAnExkWwQ
+
+
+==================================================
 Figure 1-3
     400 patients
     pick 100 pairs from there
